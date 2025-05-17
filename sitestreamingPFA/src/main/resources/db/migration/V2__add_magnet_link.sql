@@ -1,0 +1,1 @@
+ALTER TABLE movies ADD COLUMN magnet_link VARCHAR(1000); 

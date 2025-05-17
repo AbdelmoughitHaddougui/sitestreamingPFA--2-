@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Liste à voir - SOUNIMA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-content {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+        }
+        .card a, .movie-card a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+        .card a:hover, .movie-card a:hover {
+            color: #e50914;
+            text-shadow: 0 2px 8px #000a;
+        }
+        .card-title {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .movie-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px #0005;
+        }
+        .movie-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 24px #000a;
+            z-index: 2;
+        }
+        .card-img-top {
+            border-radius: 0 0 12px 12px;
+            object-fit: cover;
+            height: 340px;
+        }
+        .badge.bg-danger {
+            border-radius: 12px;
+            font-size: 0.95rem;
+            padding: 0.4em 0.9em;
+            background: linear-gradient(90deg, #e50914 60%, #b0060f 100%);
+        }
+        .text-warning {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .favorite-btn, .watchlist-btn {
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: box-shadow 0.2s, background 0.2s;
+            border-width: 2px;
+        }
+        .favorite-btn:hover, .watchlist-btn:hover {
+            box-shadow: 0 0 0 0.2rem #fff3;
+            background: #fff1;
+        }
+        @media (max-width: 991px) {
+            .card-img-top { height: 260px; }
+        }
+        @media (max-width: 767px) {
+            .card-img-top { height: 180px; }
+        }
+        body.fade-out {
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        body.fade-in {
+            opacity: 1;
+            transition: opacity 0.4s;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white fade-in">
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="main-content">
+        <div class="container mt-5">
+            <h2 class="mb-4">Ma Liste à voir</h2>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4" th:each="movie : ${user.watchlistMovies}">
+                    <a th:href="@{/movies/{id}(id=${movie.id})}" class="text-decoration-none">
+                        <div class="card bg-black movie-card h-100">
+                            <img th:src="${movie.posterUrl}" class="card-img-top" alt="Affiche du film">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${movie.title}"></h5>
+                                <p class="card-text" th:text="${movie.description}"></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-danger" th:text="${movie.releaseYear}"></span>
+                                    <form th:action="@{/movies/api/movies/{id}/watchlist/remove(id=${movie.id})}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-outline-danger watchlist-btn" title="Retirer de la liste">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-4 mb-4" th:each="serie : ${user.watchlistSeries}">
+                    <a th:href="@{/series/{id}(id=${serie.id})}" class="text-decoration-none">
+                        <div class="card bg-black movie-card h-100">
+                            <img th:src="${serie.posterUrl}" class="card-img-top" alt="Affiche de la série">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${serie.title}"></h5>
+                                <p class="card-text" th:text="${serie.description}"></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-danger" th:text="${serie.releaseYear}"></span>
+                                    <form th:action="@{/series/api/series/{id}/watchlist/remove(id=${serie.id})}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-outline-danger watchlist-btn" title="Retirer de la liste">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div th:if="${user.watchlistMovies.empty and user.watchlistSeries.empty}" class="text-center mt-5">
+                <h3>Votre liste à voir est vide</h3>
+                <p>Commencez à ajouter des films et séries à votre liste à voir !</p>
+                <a href="/movies" class="btn btn-danger me-2">Explorer les films</a>
+                <a href="/series" class="btn btn-danger">Explorer les séries</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-black text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 SOUNIMA. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.classList.add('fade-in');
+        document.querySelectorAll('a[href]:not([target]):not([href^="#"]):not([href^="javascript:"])').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                if (link.hostname !== window.location.hostname) return;
+                if (link.target === '_blank') return;
+                if (link.getAttribute('href').startsWith('javascript:')) return;
+                if (link.getAttribute('href').startsWith('#')) return;
+                e.preventDefault();
+                document.body.classList.remove('fade-in');
+                document.body.classList.add('fade-out');
+                setTimeout(function() {
+                    window.location = link.href;
+                }, 400);
+            });
+        });
+    });
+    </script>
+</body>
+</html> 

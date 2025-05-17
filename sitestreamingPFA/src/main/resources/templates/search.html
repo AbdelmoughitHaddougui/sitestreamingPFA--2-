@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Résultats pour ' + ${query} + ' - SOUNIMA'">Résultats de recherche - SOUNIMA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-dark text-white">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <h1 class="text-danger">SOUNIMA</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/movies">Films</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/series">Séries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/genres">Genres</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <form th:action="@{/search}" method="get" class="d-flex">
+                        <input class="form-control me-2 bg-dark text-white" type="search" name="q" th:value="${query}" placeholder="Rechercher...">
+                        <button class="btn btn-outline-danger" type="submit">Rechercher</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h2 class="mb-4" th:text="'Résultats pour : ' + ${query}">Résultats</h2>
+
+        <h3 class="mb-3">Films</h3>
+        <div class="row">
+            <div class="col-md-3 mb-4" th:each="movie : ${movies}">
+                <a th:href="@{/movies/{id}(id=${movie.id})}" class="text-decoration-none">
+                    <div class="card bg-dark movie-card h-100">
+                        <img th:src="${movie.posterUrl}" class="card-img-top" alt="Affiche du film">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${movie.title}">Titre du film</h5>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <span th:text="${movie.rating}">4.5</span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div th:if="${#lists.isEmpty(movies)}" class="text-muted">Aucun film trouvé.</div>
+        </div>
+
+        <h3 class="mb-3 mt-5">Séries</h3>
+        <div class="row">
+            <div class="col-md-3 mb-4" th:each="serie : ${series}">
+                <a th:href="@{/series/{id}(id=${serie.id})}" class="text-decoration-none">
+                    <div class="card bg-dark movie-card h-100">
+                        <img th:src="${serie.posterUrl}" class="card-img-top" alt="Affiche de la série">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${serie.title}">Titre de la série</h5>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <span th:text="${serie.rating}">4.5</span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div th:if="${#lists.isEmpty(series)}" class="text-muted">Aucune série trouvée.</div>
+        </div>
+    </div>
+
+    <footer class="bg-black text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 SOUNIMA. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

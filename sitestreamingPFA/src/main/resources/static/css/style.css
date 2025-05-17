@@ -1,0 +1,198 @@
+/* Global Styles */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #141414;
+    color: #ffffff;
+}
+
+/* Navigation */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    padding: 1rem 0;
+}
+
+.navbar-brand h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 80vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('/images/hero-bg.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Movie Details Hero */
+.movie-hero {
+    background-size: cover;
+    background-position: center;
+    padding: 4rem 0;
+    margin-bottom: 2rem;
+}
+
+.movie-hero .img-fluid {
+    max-height: 500px;
+    width: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.movie-hero .badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
+/* Movie Cards */
+.movie-card {
+    transition: transform 0.3s ease;
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.movie-card .card-img-top {
+    height: 300px;
+    object-fit: cover;
+}
+
+.movie-card .card-body {
+    padding: 1rem;
+}
+
+.movie-card .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.movie-card .card-text {
+    font-size: 0.9rem;
+    color: #b3b3b3;
+    margin-bottom: 1rem;
+}
+
+/* Buttons */
+.btn-danger {
+    background-color: #e50914;
+    border-color: #e50914;
+}
+
+.btn-danger:hover {
+    background-color: #f40612;
+    border-color: #f40612;
+}
+
+.btn-outline-danger {
+    color: #e50914;
+    border-color: #e50914;
+}
+
+.btn-outline-danger:hover {
+    background-color: #e50914;
+    border-color: #e50914;
+}
+
+/* Search Bar */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff !important;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: #e50914;
+    box-shadow: none;
+}
+
+/* Footer */
+footer {
+    background-color: #000000;
+    padding: 3rem 0;
+    margin-top: 4rem;
+}
+
+footer h5 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+footer a {
+    color: #b3b3b3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ffffff;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+    
+    .movie-card .card-img-top {
+        height: 200px;
+    }
+
+    .movie-hero .img-fluid {
+        max-height: 300px;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e50914;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #f40612;
+} 

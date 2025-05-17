@@ -1,0 +1,9 @@
+<div class="mb-3">
+    <label for="videoUrl" class="form-label">Video URL</label>
+    <input type="url" class="form-control" id="videoUrl" name="videoUrl" th:value="${movie?.videoUrl}">
+</div>
+
+<div class="mb-3">
+    <label for="magnetLink" class="form-label">Magnet Link</label>
+    <input type="text" class="form-control" id="magnetLink" name="magnetLink" th:value="${movie?.magnetLink}" placeholder="magnet:?xt=urn:btih:...">
+    <div class="form-text">Enter a magnet link for torrent-based streaming</div> 
